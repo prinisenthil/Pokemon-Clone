@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk16kckqtr4fp"]
+
+[ext_resource type="Script" path="res://scripts/pokemon.gd" id="1_8rddm"]
+
+[node name="pokemon" type="CharacterBody2D"]
+script = ExtResource("1_8rddm")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+
+[node name="BattleBtnContainer" type="HBoxContainer" parent="."]
+offset_left = 49.0
+offset_top = -10.0
+offset_right = 120.0
+offset_bottom = 12.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AttackBtn" type="Button" parent="BattleBtnContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_hover_color = Color(0.196078, 0.196078, 0.196078, 1)
+theme_override_font_sizes/font_size = 10
+text = "Attack"
+
+[node name="FleeBtn" type="Button" parent="BattleBtnContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_hover_color = Color(0.197937, 0.197937, 0.197937, 1)
+theme_override_font_sizes/font_size = 10
+text = "Flee"

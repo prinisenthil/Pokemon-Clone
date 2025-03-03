@@ -1,0 +1,204 @@
+[gd_scene load_steps=11 format=3 uid="uid://cavf1j1vicwf4"]
+
+[ext_resource type="Texture2D" uid="uid://cue7acbci0d2l" path="res://art/characters/Nurse.png" id="1_mftk7"]
+[ext_resource type="Script" path="res://scripts/nurse.gd" id="2_ajhtr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkmrs"]
+atlas = ExtResource("1_mftk7")
+region = Rect2(168, 96, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2n32"]
+atlas = ExtResource("1_mftk7")
+region = Rect2(168, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy3cl"]
+atlas = ExtResource("1_mftk7")
+region = Rect2(168, 32, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk88b"]
+atlas = ExtResource("1_mftk7")
+region = Rect2(144, 96, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8njyc"]
+atlas = ExtResource("1_mftk7")
+region = Rect2(168, 64, 24, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jt8mr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkmrs")
+}],
+"loop": true,
+"name": &"back_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}],
+"loop": true,
+"name": &"front_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}],
+"loop": true,
+"name": &"left_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}],
+"loop": false,
+"name": &"nod",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8njyc")
+}],
+"loop": true,
+"name": &"right_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy3cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n32")
+}],
+"loop": false,
+"name": &"turn_to_machine",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c11t3"]
+size = Vector2(20, 50)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2p72"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.0936694, 0.0936694, 0.0936694, 1)
+border_blend = true
+
+[node name="Nurse" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_jt8mr")
+animation = &"turn_to_machine"
+script = ExtResource("2_ajhtr")
+
+[node name="InteractionZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
+position = Vector2(0, 17)
+shape = SubResource("RectangleShape2D_c11t3")
+
+[node name="UI" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 0
+offset_left = 19.0
+offset_top = 73.0
+offset_right = 59.0
+offset_bottom = 113.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Textbox" type="Panel" parent="UI"]
+layout_mode = 0
+offset_left = -105.0
+offset_top = 7.0
+offset_right = 68.0
+offset_bottom = 37.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_u2p72")
+
+[node name="Dialogue" type="Label" parent="UI/Textbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = -6.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.227684, 0.269213, 0.39859, 1)
+theme_override_font_sizes/font_size = 8
+text = "Text goes here."
+autowrap_mode = 3
+
+[connection signal="body_entered" from="InteractionZone" to="." method="_on_interaction_zone_body_entered"]
+[connection signal="body_exited" from="InteractionZone" to="." method="_on_interaction_zone_body_exited"]

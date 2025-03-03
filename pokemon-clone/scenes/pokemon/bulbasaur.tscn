@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://5ko7mcysxhg8"]
+
+[ext_resource type="PackedScene" uid="uid://dk16kckqtr4fp" path="res://scenes/pokemon/pokemon.tscn" id="1_qivd7"]
+[ext_resource type="Texture2D" uid="uid://bka5ieap7d774" path="res://art/pokemon sprites/front facing/bulbasaur.png" id="2_2jf5q"]
+[ext_resource type="Texture2D" uid="uid://dmgqqwhkau28s" path="res://art/pokemon sprites/back facing/bulbasaur back.png" id="2_c4cee"]
+[ext_resource type="Script" path="res://scripts/bulbasaur.gd" id="2_rbwtn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc0cb"]
+atlas = ExtResource("2_c4cee")
+region = Rect2(0, 0, 45, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coumc"]
+atlas = ExtResource("2_2jf5q")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1gdvf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oc0cb")
+}],
+"loop": true,
+"name": &"back_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coumc")
+}],
+"loop": true,
+"name": &"front_idle",
+"speed": 5.0
+}]
+
+[node name="bulbasaur" instance=ExtResource("1_qivd7")]
+script = ExtResource("2_rbwtn")
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_1gdvf")
+animation = &"front_idle"

@@ -1,0 +1,374 @@
+[gd_scene load_steps=13 format=3 uid="uid://dmo013opbbiv6"]
+
+[ext_resource type="Script" path="res://scripts/battle.gd" id="1_4b1wo"]
+[ext_resource type="Texture2D" uid="uid://bfansoe7p3qs1" path="res://art/battle backgrounds/BB1 RSE Grass3.png" id="1_5qhmr"]
+[ext_resource type="PackedScene" uid="uid://5ko7mcysxhg8" path="res://scenes/pokemon/bulbasaur.tscn" id="1_qfc17"]
+[ext_resource type="Texture2D" uid="uid://r8jjmjykrkkg" path="res://art/battle backgrounds/BB2 FRLG Grass.png" id="2_oyyul"]
+[ext_resource type="AudioStream" uid="uid://bgl27ds4b0ndh" path="res://audio/battle_audio_clipped.mp3" id="3_hhb5d"]
+[ext_resource type="PackedScene" uid="uid://cvukrrxa8nc4y" path="res://scenes/battle_trainer.tscn" id="3_xr6uw"]
+[ext_resource type="PackedScene" uid="uid://bv5kg3qw8r5ya" path="res://scenes/pokemon/squirtle.tscn" id="6_hxqt3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yynsx"]
+bg_color = Color(1, 1, 1, 0.952941)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0936694, 0.0936694, 0.0936694, 1)
+border_blend = true
+
+[sub_resource type="Animation" id="Animation_2w3nx"]
+resource_name = "EnemyAttack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemyPokemon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333, 0.133333, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(677, 281), Vector2(670, 284), Vector2(675.25, 281.75)]
+}
+
+[sub_resource type="Animation" id="Animation_c3kiq"]
+resource_name = "PlayerAttack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrainerPokemon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(510, 362), Vector2(520, 359), Vector2(510, 362)]
+}
+
+[sub_resource type="Animation" id="Animation_fkupj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrainerPokemon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(510, 362)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyPokemon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(677, 281)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u6fpa"]
+_data = {
+"EnemyAttack": SubResource("Animation_2w3nx"),
+"PlayerAttack": SubResource("Animation_c3kiq"),
+"RESET": SubResource("Animation_fkupj")
+}
+
+[node name="battle" type="Node2D"]
+script = ExtResource("1_4b1wo")
+
+[node name="Battle Background" type="Sprite2D" parent="."]
+position = Vector2(568.5, 336.25)
+scale = Vector2(1.22222, 1.00607)
+texture = ExtResource("1_5qhmr")
+
+[node name="Battle Platforms" type="Sprite2D" parent="."]
+position = Vector2(676, 298)
+texture = ExtResource("2_oyyul")
+
+[node name="Battle Platforms2" type="Sprite2D" parent="."]
+position = Vector2(510, 383)
+texture = ExtResource("2_oyyul")
+
+[node name="BattleTrainer" parent="." instance=ExtResource("3_xr6uw")]
+position = Vector2(429, 386)
+scale = Vector2(1.2, 1.2)
+
+[node name="BattleCamera" type="Camera2D" parent="."]
+position = Vector2(571, 319)
+zoom = Vector2(3.3, 3.3)
+limit_left = 380
+limit_top = 200
+limit_right = 800
+limit_bottom = 440
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hhb5d")
+volume_db = 10.0
+autoplay = true
+parameters/looping = true
+
+[node name="EnemyPokemon" parent="." instance=ExtResource("1_qfc17")]
+position = Vector2(677, 281)
+
+[node name="TrainerPokemonShow" type="Timer" parent="."]
+one_shot = true
+
+[node name="TrainerPokemon" parent="." instance=ExtResource("6_hxqt3")]
+position = Vector2(510, 362)
+
+[node name="ReturnToWorld" type="Timer" parent="."]
+
+[node name="Textbox" type="Panel" parent="."]
+offset_left = 457.0
+offset_top = 377.0
+offset_right = 705.0
+offset_bottom = 417.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yynsx")
+
+[node name="Label" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = -5.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.227451, 0.270588, 0.4, 1)
+theme_override_font_sizes/font_size = 10
+text = "Text goes here."
+autowrap_mode = 3
+
+[node name="AttackAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u6fpa")
+}
+
+[node name="PlayerControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 506.0
+offset_top = 350.0
+offset_right = 546.0
+offset_bottom = 390.0
+
+[node name="HealthBar" type="ProgressBar" parent="PlayerControl"]
+modulate = Color(2.79158e-06, 0.97611, 0.106406, 1)
+layout_mode = 0
+offset_left = -81.0
+offset_top = -26.0
+offset_right = -5.0
+offset_bottom = -15.0
+step = 0.0
+value = 10.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="Label" parent="PlayerControl/HealthBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.144737
+anchor_top = 1.0
+anchor_right = -0.144737
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -12.0
+offset_right = 48.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "HP"
+metadata/_edit_use_anchors_ = true
+
+[node name="Progress" type="Label" parent="PlayerControl/HealthBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.181818
+anchor_bottom = -0.181818
+offset_left = 6.0
+offset_right = 68.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ExpBar" type="ProgressBar" parent="PlayerControl"]
+modulate = Color(0, 0.470588, 0.952941, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.075
+anchor_bottom = -0.075
+offset_left = -81.0
+offset_top = -2.0
+offset_right = -5.0
+offset_bottom = 4.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Exp Points" type="Label" parent="PlayerControl/ExpBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.184211
+anchor_top = 1.33333
+anchor_right = -0.184211
+anchor_bottom = 1.33333
+offset_left = -3.0
+offset_top = -12.0
+offset_right = 48.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "EXP"
+metadata/_edit_use_anchors_ = true
+
+[node name="Progress" type="Label" parent="PlayerControl/ExpBar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.333333
+anchor_bottom = -0.333333
+offset_left = 6.0
+offset_top = -5.0
+offset_right = 68.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "0/100"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Level" type="Label" parent="PlayerControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.725
+anchor_top = -0.65
+anchor_right = -0.725
+anchor_bottom = -0.65
+offset_left = -3.0
+offset_top = -12.0
+offset_right = 48.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "Lvl"
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="PlayerControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.25
+anchor_top = -0.875
+anchor_right = -2.25
+anchor_bottom = -0.875
+offset_left = -3.0
+offset_top = -11.0
+offset_right = 75.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "SQUIRTLE
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemyControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 641.0
+offset_top = 280.0
+offset_right = 681.0
+offset_bottom = 320.0
+
+[node name="HealthBar" type="ProgressBar" parent="EnemyControl"]
+modulate = Color(2.79158e-06, 0.97611, 0.106406, 1)
+layout_mode = 0
+offset_left = -81.0
+offset_top = -26.0
+offset_right = -5.0
+offset_bottom = -15.0
+step = 0.0
+value = 10.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Progress" type="Label" parent="EnemyControl/HealthBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.181818
+anchor_bottom = -0.181818
+offset_left = 6.0
+offset_right = 68.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="Label" parent="EnemyControl/HealthBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.144737
+anchor_top = 1.0
+anchor_right = -0.144737
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -12.0
+offset_right = 48.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "HP"
+metadata/_edit_use_anchors_ = true
+
+[node name="Level" type="Label" parent="EnemyControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.75
+anchor_top = -0.65
+anchor_right = -0.75
+anchor_bottom = -0.65
+offset_left = -3.0
+offset_top = -12.0
+offset_right = 48.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "Lvl"
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="Label" parent="EnemyControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.25
+anchor_top = -0.8
+anchor_right = -2.2
+anchor_bottom = -0.8
+offset_left = -3.0
+offset_top = -14.0
+offset_right = 48.0
+offset_bottom = 9.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "BULBASAUR
+"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="TrainerPokemonShow" to="." method="_on_trainer_pokemon_show_timeout"]
+[connection signal="timeout" from="ReturnToWorld" to="." method="_on_return_to_world_timeout"]

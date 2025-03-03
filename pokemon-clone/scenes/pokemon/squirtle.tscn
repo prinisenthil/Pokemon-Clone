@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://bv5kg3qw8r5ya"]
+
+[ext_resource type="PackedScene" uid="uid://dk16kckqtr4fp" path="res://scenes/pokemon/pokemon.tscn" id="1_0jffj"]
+[ext_resource type="Texture2D" uid="uid://b2ipmvcql4omk" path="res://art/pokemon sprites/front facing/squirtle.png" id="2_1ymcb"]
+[ext_resource type="Script" path="res://scripts/squirtle.gd" id="2_p2agm"]
+[ext_resource type="Texture2D" uid="uid://bxuxywueqjt7i" path="res://art/pokemon sprites/back facing/squirtle back.png" id="2_s3u1g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqrpe"]
+atlas = ExtResource("2_s3u1g")
+region = Rect2(0, 0, 45, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1c6jo"]
+atlas = ExtResource("2_1ymcb")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hlo3n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqrpe")
+}],
+"loop": true,
+"name": &"back_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1c6jo")
+}],
+"loop": true,
+"name": &"front_idle",
+"speed": 5.0
+}]
+
+[node name="squirtle" instance=ExtResource("1_0jffj")]
+script = ExtResource("2_p2agm")
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_hlo3n")
+animation = &"back_idle"
